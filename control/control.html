@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL語法</title>
+</head>
+
+<body>
+    <h3>新建資料庫(Create)</h3>
+    <p>
+        上引號： ` ` (鍵盤上方數字鍵最左邊的按鍵) -用來包住資料表及欄位名稱時使用<br>
+        單引號： ' ' (鍵盤中間一排最右邊在enter鍵左邊的按鍵) -用來包住字串及值時使用<br>
+        分　號： ;代表一個SQL句子的結束，如果要同時執行多個SQL句子，要使用分號隔開<br>
+    </p>
+    <h3>新建資料表(Create)</h3>
+    <h3>新增資料(Insert)</h3>
+    <h4>INSERT 新增 / 插入</h4>
+    <p>
+        INSERT INTO `table`(`col1`,`col2`,`col3`,`col4`,`col5`)
+        VALUES('value1','value1','value1','value1','value1','value1');
+
+
+    </p>
+    <h3>更新資料(Update)</h3>
+    <h4>UPDATE 更新</h4>
+    <p>
+        UPDATE `table` SET `col1`='value1',`col2`='value2',...　WHERE ...
+
+    </p>
+    <h3>查詢資料(Select)</h3>
+    <h4>SELECT 查詢</h4>
+    <p>
+        SELECT `col1`,`col2`,... FROM `table1`,`table2`,...　WHERE ...
+
+    </p>
+    <p>
+        as <br>
+
+        在select句子中，有時欄位的名稱不一定是呈現結果時要出現的，此時可以使用 as 來對欄位重新命名，例： <br>
+
+        select score as ‘成績’, avg(score) as ‘平均’ from students …… <br>
+    </p>
+    <h4>SQL 條件句操作</h4>
+    <p>
+        WHERE 條件<br>
+        SELECT * FROM `table` WHERE `id`='23';<br>
+
+        SELECT * FROM `table` WHERE `id`='23' AND `name`='mack';<br>
+    </p>
+    <p>
+        IN 特殊指定<br>
+        SELECT * FROM `table` WHERE `id` IN('23','36','42','78','98');<br>
+    </p>
+    <p>
+        BETWEEN 兩者之間<br>
+        使用BETWEEN時要注意值的先後順序，小的在前，大的在後<br>
+        SELECT * FROM `table` WHERE `id` BETWEEN '23' AND '98';<br>
+        <br>
+        相當於<br>
+        <br>
+        SELECT * FROM `table` WHERE `id` >= '23' AND `id` <= '98' ;<br>
+    </p>
+    <p>
+        ORDER BY 排序<br>
+        排序的參數有兩種<br>
+        ASC 預設的排序，可以不用寫，為遞增排序<br>
+        DESC 遞減排序<br>
+        SELECT * FROM `table` ORDER BY `birthday` ASC;<br>
+        <br>
+        SELECT * FROM `table` ORDER BY `birthday` DESC;<br>
+        <br>
+        可以多個欄位進行同值時的第二排序、第三排序等<br>
+        <br>
+        SELECT * FROM `table` ORDER BY `birthday` DESC,`area` ASC;<br>
+        <br>
+        上一句的意思是先以生日來做遞減排序，如果遇到多筆資料都是同一天生日的，再以縣市欄位來做遞增排序<br>
+    </p>
+    <p>
+        GROUP BY 群組<br>
+        SELECT * FROM `table` GROUP BY `area`;<br>
+        <br>
+        SELECT * FROM `table` GROUP BY `area`,`divsion`;<br>
+        <br>
+        上一句的意思是先把資料依照縣市做分群，再把每群資料依照縣市中的地區做第二層分群<br>
+    </p>
+    <p>
+        LIMIT 限制筆數<br>
+        SELECT * FROM `table` LIMIT 20;<br>
+        只取資料表的前20筆資料<br>
+        <br>
+        SELECT * FROM `table` LIMIT 10,20;<br>
+        從資料表第11筆開始，取出20筆資料<br>
+        使用LIMIT語法時，資料表的開始是由第0筆開始計算<br>
+    </p>
+    <h3>刪除資料(Delete)</h3>
+    <h4>DELETE 刪除</h4>
+    <p>
+        DELETE FROM `table` WHERE ...
+    </p>
+</body>
+
+</html>

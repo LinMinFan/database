@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL常見函式</title>
+</head>
+
+<body>
+    <h3>聚合函式</h3>
+    <p>
+        AVG：計算欄位的平均值 <br>
+        COUNT：計算查詢結果的筆數 <br>
+        MAX：取出欄位中的最大值<br>
+        MIN：取出欄位中的最小值<br>
+        SUM：計算欄位的總計<br>
+    </p>
+    <h3>字串函式</h3>
+    <p>
+        CHAR_LENGTH：取得字串的長度(以多字元字集方式)<br>
+        LENGTH：取得字串的長度(bytes)<br>
+        CONCAT：字串合併<br>
+        GROUP_CONCAT：取得字串的長度(以多字元字集方式)<br>
+        LEFT：取出由左邊開始的指定長度的字串<br>
+        RIGHT：取出由右邊開始的指定長度的字串<br>
+        SUBSTRING：取出指定位置開始的指定長度的字串<br>
+    </p>
+    <h3>日期/時間函式</h3>
+    <p>
+        CURRENT_DATE：取出當前的系統日期<br>
+        CURRENT_TIME：取出當前的系統時間<br>
+        NOW：取出當前的系統日期及時間<br>
+        DATEDIFF：計算兩個日期間差距的天數<br>
+        TIMESTAMPDIFF：計算兩個日期時間差距的單位，可選擇要返回的數值是時間還是日期<br>
+        YEAR：取出日期時間格的資料中年的部份<br>
+        MONTH：取出日期時間格的資料中月的部份<br>
+        DATE：取出日期時間格的資料中日期的部份<br>
+        HOUR：取出日期時間格的資料中小時的部份<br>
+        MINUTE：取出日期時間格的資料中分鐘的部份<br>
+        SECOND：取出日期時間格的資料中秒的部份<br>
+    </p>
+    <h3>流程控制函式</h3>
+    <p>
+        CASE：類似switch case的用法<br>
+        case運算式有兩種用法分別是和switch..case一樣的根據一個結果來決定回傳值；另一個用法則是和if..elseif…else一樣，可以做多個條件的判斷並回傳不同的結果<br>
+    </p>
+    <p>
+        SELECT CASE `gender`<br>
+        WHEN 1 THEN '男'<br>
+        WHEN 2 THEN '女'<br>
+        ELSE '多元性別'<br>
+        END <br>
+    </p>
+    <p>
+        SELECT CASE <br>
+        WHEN `salary` <= 30000 THEN '年終一個月' <br>
+            WHEN `salary` > 30000 AND `salary` <=45000 THEN '年終兩個月' <br>
+                WHEN `salary > 45000 THEN '年終三個月'<br>
+                END<br>
+    </p>
+    <p>
+        IF <br>
+        SELECT IF(`gender`=1,'男','女') <br>
+    </p>
+    <p>
+        IFNULL <br>
+        SELECT IFNULL(`score`,0) <br>
+    </p>
+</body>
+
+</html>
