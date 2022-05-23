@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL子查詢</title>
+    <style>
+        * {
+            list-style-type: none;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 1rem auto;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem;
+            padding: 0.5 2rem;
+        }
+
+        ul {
+            margin: 1rem;
+        }
+
+        li {
+            border: 1px solid #ccc;
+            background: #eee;
+            padding: 1rem;
+            width: 80%;
+            font-size: 1.5rem;
+            white-space: pre-wrap;
+            word-break: break-all;
+            margin: 0.75rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>在Select 區段的子查詢</h3>
+    <p>
+        SELECT `id`,`score`,avg(`score`) as '總平均' FROM `students`
+    </p>
+    <ul>
+        <li>
+            SELECT `class_code` as '班級',
+            count("*") as "人數" ,
+            (SELECT count(*) FROM `class_student`) as '總人數',
+            count(*) / (SELECT count(*) FROM `class_student`) as '比例'
+            FROM `class_student`
+            GROUP BY `class_code`
+        </li>
+        <li>
+            SELECT `class_student`.`school_num` as '學號',
+            `students`.`name`,
+            `students`.`addr`
+            FROM `class_student`,`students`
+            WHERE `class_student`.`school_num`=`students`.`school_num`
+        </li>
+    </ul>
+    <h3>在from 區段的子查詢</h3>
+    <p>
+        SELECT `students`.`id`,`students`.`score`,`A`.`address` <br>
+        FROM `students`,(SELECT `id`,`address` FROM `private`)A<br>
+        WHERE `students`.`id`=`A`.`id`<br>
+    </p>
+    <ul>
+        <li>
+            SELECT `class_student`.`school_num` as '學號',
+            `A`.`name`,
+            `A`.`addr`
+            FROM `class_student`,
+            (SELECT `students`.`school_num`,`students`.`name`,`students`.`addr` FROM `students`)A
+            WHERE `class_student`.`school_num`=`A`.`school_num`
+
+        </li>
+    </ul>
+    <h3>在where(join) 區段的字查詢</h3>
+    <p>
+        SELECT 欄位.... <br>
+        FROM `table`<br>
+        WHERE `students`.`id`=(子查詢)<br>
+        <br>
+        <br>
+        SELECT 欄位.... <br>
+        FROM `table`<br>
+        WHERE `students`.`id` IN(子查詢)<br>
+    </p>
+    <ul>
+        <li>
+            SELECT `A`.`班級`,`A`.`人數`
+
+            FROM (SELECT `class_code` as '班級',
+            count("*") as "人數"
+            FROM `class_student`
+            GROUP BY `class_code`)A
+            WHERE `A`.`人數` >= (SELECT AVG(`B`.`人數`) FROM
+            (SELECT `class_code` as '班級',
+            count("*") as "人數"
+            FROM `class_student`
+            GROUP BY `class_code`)B
+            )
+        </li>
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL結合查詢</title>
+    <style>
+        * {
+            list-style-type: none;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 1rem auto;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem;
+            padding: 0.5 2rem;
+        }
+
+        ul {
+            margin: 1rem;
+        }
+
+        li {
+            border: 1px solid #ccc;
+            background: #eee;
+            padding: 1rem;
+            width: 80%;
+            font-size: 1.5rem;
+            white-space: pre-wrap;
+            word-break: break-all;
+            margin: 0.75rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Inner Join 內部結合查詢</h3>
+    <p>
+        基本就是 FROM WHERE 語法的另一種表現，查詢的結果也和 FROM WHERE 一樣<br>
+        SELECT *<br>
+        FROM `tableA` <br>
+        INNER JOIN `tableB` ON `tableA`.`id` = `tableB`.`A_id`<br>
+        <br>
+        等同於<br>
+        <br>
+        SELECT *<br>
+        FROM `tableA` , `tableB`<br>
+        WHERE `tableA`.`id` = `tableB`.`A_id`<br>
+    </p>
+    <ul>
+        <li>SELECT * FROM `students`,`major` WHERE `major`.`id`=`students`.`major`</li>
+        <li>SELECT `students`.*,`major`.`name` as 'major' FROM `students`,`major` WHERE `major`.`id`=`students`.`major`
+        </li>
+        <li>SELECT `students`.`id`,`students`.`name`,`graduate_school`.`name` as '畢業國中' FROM
+            `students`,`graduate_school`</li>
+        <li>
+            SELECT `students`.`id`,
+            `students`.`name`,
+            `graduate_school`.`name` as '畢業國中'
+            FROM `students`,`graduate_school`
+            WHERE `students`.`graduate_at`=`graduate_school`.`id`
+        </li>
+        <li>
+            SELECT `students`.`id`,
+            `students`.`name`,
+            `graduate_school`.`name` as '畢業國中' ,
+            `status`.`status` as '畢業狀態'
+            FROM `students`,`graduate_school`,`status`
+            WHERE `students`.`graduate_at`=`graduate_school`.`id`
+        </li>
+        <li>
+            SELECT `students`.`id`,
+            `students`.`name`,
+            `graduate_school`.`name` as '畢業國中' ,
+            `status`.`status` as '畢業狀態'
+            FROM `students`,`graduate_school`,`status`
+            WHERE `students`.`graduate_at`=`graduate_school`.`id` &&
+            `students`.`status_code`=`status`.`code`
+        </li>
+        <li>
+            SELECT `students`.`id`,
+            `students`.`name`,
+            `students`.`birthday`,
+            `students`.`uni_id`,
+            `dept`.`name` as '科系',
+            `graduate_school`.`name` as '畢業國中' ,
+            `status`.`status` as '畢業狀態'
+            FROM `students`,`graduate_school`,`status`,`dept`
+            WHERE `students`.`graduate_at`=`graduate_school`.`id` &&
+            `students`.`status_code`=`status`.`code` &&
+            `students`.`dept`=`dept`.`id`
+        </li>
+        <li>
+            SELECT `dept`.`name` as "科系",
+            GROUP_CONCAT(`students`.`name`) as "學生"
+            FROM `students`,`dept`,`class_student`
+            WHERE `students`.`dept`=`dept`.`id` &&
+            `students`.`school_num`=`class_student`.`school_num` &&
+            `class_student`.`class_code`=101
+            GROUP BY `dept`.`name`
+        </li>
+    </ul>
+    <h3>Out Join 外部結合查詢</h3>
+    <p>
+        外部結合查詢的目的在於固定一張資料表的內容，結合的另一張表即使沒有對應的資料，最後也會留下來固定資料表的所有內容。
+        外部結合查詢又依照要保留的資料表不同分為右結合及左結合
+    </p>
+    <h4>Left Join</h4>
+    <p>
+        SELECT *<br>
+        FROM `tableA` <br>
+        LEFT JOIN `tableB` ON `tableA`.`id` = `tableB`.`A_id`<br>
+    </p>
+    <ul>
+        <li>SELECT `dept`.`name`,count(*) as '人數' FROM `dept`,`students` WHERE `students`.`dept`=`dept`.`id` GROUP By
+            `students`.`dept`</li>
+        <li>
+            SELECT `dept`.`name`,
+            count(`students`.`id`) as '人數'
+            FROM `dept`
+            LEFT JOIN `students`
+            ON `students`.`dept`=`dept`.`id`
+            GROUP By `dept`.`name`
+        </li>
+        <li>
+            SELECT `students`.`id`,
+            `students`.`name`,
+            `students`.`birthday`,
+            `students`.`uni_id`,
+            `dept`.`name` as '科系',
+            `graduate_school`.`name` as '畢業國中' ,
+            `status`.`status` as '畢業狀態'
+            FROM `students`
+            LEFT JOIN `graduate_school`
+            ON `students`.`graduate_at`=`graduate_school`.`id`
+            LEFT JOIN `status`
+            ON `students`.`status_code`=`status`.`code`
+            LEFT JOIN `dept`
+            ON `students`.`dept`=`dept`.`id`
+        </li>
+    </ul>
+</body>
+
+</html>

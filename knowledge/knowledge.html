@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL語法的順序</title>
+    <style>
+        * {
+            list-style-type: none;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 1rem auto;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem;
+            padding: 0.5 2rem;
+        }
+
+        ul {
+            margin: 1rem;
+        }
+
+        li {
+            border: 1px solid #ccc;
+            background: #eee;
+            padding: 1rem;
+            width: 80%;
+            font-size: 1.5rem;
+            white-space: pre-wrap;
+            word-break: break-all;
+            margin: 0.75rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>書寫SQL語法的順序</h3>
+    <p>
+        SELECT -> FROM -> WHERE -> GROUP BY -> HAVING -> ORDER BY
+    </p>
+    <h3>執行SQL語法的順序</h3>
+    <p>
+        FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY
+    </p>
+    <ul>
+        <li>FROM:需要從哪個資料表檢索資料</li>
+        <li>WHERE:過濾表中資料</li>
+        <li>GROUP BY:將上面過濾出的資料分組</li>
+        <li>HAVING:對上面已經分組的資料進行過濾</li>
+        <li>SELECT:檢視結果集中的哪個列，或列的計算結果</li>
+        <li>ORDER BY:按照什麼樣的順序來檢視返回的資料</li>
+    </ul>
+</body>
+
+</html>
